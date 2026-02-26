@@ -17,12 +17,12 @@ type DatabaseConfig struct {
 // LoadDatabaseConfig loads database configuration from environment
 func LoadDatabaseConfig() *DatabaseConfig {
 	return &DatabaseConfig{
-		Host:     getEnv("DB_HOST", "localhost"),
-		Port:     getEnv("DB_PORT", "5432"),
-		User:     getEnv("DB_USER", "postgres"),
-		Password: getEnv("DB_PASSWORD", "admin"),
-		Database: getEnv("DB_NAME", "boengkoes"),
-		SSLMode:  getEnv("DB_SSLMODE", "disable"),
+		Host:     getEnv("DB_HOST", ""),
+		Port:     getEnv("DB_PORT", ""),
+		User:     getEnv("DB_USER", ""),
+		Password: getEnv("DB_PASSWORD", ""),
+		Database: getEnv("DB_NAME", ""),
+		SSLMode:  getEnv("DB_SSLMODE", ""),
 	}
 }
 

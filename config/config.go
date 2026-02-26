@@ -15,7 +15,7 @@ type Config struct {
 // Load loads configuration from environment variables
 func Load() *Config {
 	return &Config{
-		AppName: getEnv("APP_NAME", "Boengkoes Backend"),
+		AppName: getEnv("APP_NAME", ""),
 		AppEnv:  getEnv("APP_ENV", "development"),
 		Port:    getEnv("PORT", "8080"),
 	}

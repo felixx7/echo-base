@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 
 	"echo-base/config"
@@ -16,6 +17,12 @@ import (
 )
 
 func main() {
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("No .env file found")
+	}
+
 	// Load config
 	cfg := config.Load()
 	dbCfg := config.LoadDatabaseConfig()

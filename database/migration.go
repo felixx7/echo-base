@@ -46,6 +46,30 @@ func RunMigrations(db *sql.DB) error {
 				INSERT INTO roles (name) VALUES ('admin') ON CONFLICT (name) DO NOTHING;
 			`,
 		},
+		{
+			name: "create_permissions_table",
+			sql: `
+				CREATE TABLE IF NOT EXISTS permissions (
+					id SERIAL PRIMARY KEY,
+					name VARCHAR(255) NOT NULL UNIQUE,
+					created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+				);
+				CREATE INDEX IF NOT EXISTS idx_permissions_name ON permissions(name);
+			`,
+		},
+		{
+			name: "create_role_permissions_table",
+			sql: `
+				CREATE TABLE IF NOT EXISTS role_permissions (
+					role_id INTEGER NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
+					permission_id INTEGER NOT NULL REFERENCES permissions(id) ON DELETE CASCADE,
+					PRIMARY KEY (role_id, permission_id)
+				);
+				CREATE INDEX IF NOT EXISTS idx_role_permissions_role_id ON role_permissions(role_id);
+				CREATE INDEX IF NOT EXISTS idx_role_permissions_permission_id ON role_permissions(permission_id);
+			`,
+		},
 	}
 
 	for _, migration := range migrations {
